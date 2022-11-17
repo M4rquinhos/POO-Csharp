@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using POO;
 using System.Net.WebSockets;
 using Utilidades;
@@ -99,4 +101,25 @@ clasePublicaDePrueba.PropiedadPublica = 1;
 
 
 
-  
+
+
+var hostBuilder = Host.CreateDefaultBuilder(args);
+hostBuilder = hostBuilder.ConfigureServices(ConfigurarServicios);
+using var host = hostBuilder.Build();
+
+
+//var almacenadorArchivosAzure = new AlmacenadorArchivosAzure();
+//var almacenadorArchivosAWS = new AlmacenadorDeArchivosAWS();
+
+//var controladorPeliculas = new ControladorDePeliculas(almacenadorArchivosAzure);
+
+var controladorDePeliculas = host.Services.GetRequiredService<ControladorDePeliculas>();
+
+controladorDePeliculas.GuardarPoster("poster.jpg");
+controladorDePeliculas.BorrarPoster("poster.jpg");
+
+void ConfigurarServicios(IServiceCollection services)
+{
+    services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
+    services.AddTransient<ControladorDePeliculas>();
+}
