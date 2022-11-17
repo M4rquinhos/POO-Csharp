@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using POO;
 using System.Net.WebSockets;
+using Utilidades;
 
 Console.WriteLine("Hello, World!");
 
@@ -88,3 +89,14 @@ void AceptoCualquierParametro(object objeto)
     Console.WriteLine("---Fin del metodo---");
 
 }
+
+
+
+var clasePublicaDePrueba = new ClasePublicaDePrueba();
+clasePublicaDePrueba.PropiedadPublica = 1;
+//clasePublicaDePrueba.MetodoPublico(); //No se puede acceder debido a su proteccion (desde la misma clase si se puede)
+
+
+
+
+  
